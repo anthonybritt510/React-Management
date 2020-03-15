@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -11,40 +12,24 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.get('/api/customers', (req, res) => {
-    res.send([
-        {
-            'id': 1,
-            'image': 'https://placeimg.com/64/64/1',
-            'name': 'Jovan Markovic',
-            'birthday': '1988-08-09',
-            'gender': 'Male',
-            'job': 'Senior Web Developer'
-        },
-        {
-            'id': 2,
-            'image': 'https://placeimg.com/64/64/2',
-            'name': 'Priyanka Hinal',
-            'birthday': '1988-08-09',
-            'gender': 'Female',
-            'job': 'Team Manager'
-        },
-        {
-            'id': 3,
-            'image': 'https://placeimg.com/64/64/3',
-            'name': 'Rakesh Maxim',
-            'birthday': '1988-08-09',
-            'gender': 'Male',
-            'job': 'Senior Web Developer'
-        },
-        {
-            'id': 4,
-            'image': 'https://placeimg.com/64/64/4',
-            'name': 'Jacek Betal',
-            'birthday': '1988-08-09',
-            'gender': 'Male',
-            'job': 'Designer'
-        }
-    ]);
+
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'dev',
+        password: 'dev',
+        database: 'management',
+        port: 8889
+    })
+    
+    connection.connect();
+
+    connection.query('SELECT * FROM customer', function(err, rows, fields) {
+        if (err) throw err;
+        res.send(rows);
+    })
+
+    connection.end();
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
