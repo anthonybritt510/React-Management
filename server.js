@@ -27,6 +27,8 @@ app.get('/api/customers', (req, res) => {
         if (err) throw err;
         res.send(rows);
     })
+    
+
 
     connection.end();
 
