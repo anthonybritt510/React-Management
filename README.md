@@ -1,3 +1,6 @@
+# Management System
+This project is created by Jovan Markovic for React template course.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
