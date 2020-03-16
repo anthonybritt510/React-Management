@@ -87,10 +87,11 @@ class App extends React.Component {
                 <TableCell>Birthday</TableCell>
                 <TableCell>Gender</TableCell>
                 <TableCell>Job</TableCell>
+                <TableCell>Option</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-            { this.state.customers ? this.state.customers.map(c => <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />) 
+            { this.state.customers ? this.state.customers.map(c => <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />) 
             : <TableRow><TableCell colSpan="6" align="center"><CircularProgress className={classes.progress} variant="determinate" value={this.state.completed} /></TableCell></TableRow> }
             </TableBody>
           </Table>

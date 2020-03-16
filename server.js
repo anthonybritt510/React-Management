@@ -30,7 +30,7 @@ app.get('/api/hello', (req, res) => {
 
 app.get('/api/customers', (req, res) => {
 
-    connection.query('SELECT * FROM customer', function(err, rows, fields) {
+    connection.query('SELECT * FROM customer WHERE is_deleted = 0', function(err, rows, fields) {
         if (err) throw err;
         res.send(rows);
     })
@@ -51,6 +51,15 @@ app.post('/api/customers', upload.single('image'), (req, res) => {
         res.send(rows);
         console.log(err);
     })
+})
+
+app.delete('/api/customers/:id', (req, res) => {
+    let sql = 'UPDATE CUSTOMER SET is_deleted = 1 WHERE id = ?';
+    let params = [req.params.id];
+
+    connection.query(sql, params, (err, rows, fields) => {
+        res.send(rows);
+    });
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
